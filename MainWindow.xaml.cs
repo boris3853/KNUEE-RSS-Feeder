@@ -15,17 +15,12 @@ using System.Windows.Shapes;
 using System.Xml;
 
 namespace RSS_FEEDER
-{
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    
+{   
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -39,49 +34,60 @@ namespace RSS_FEEDER
             // 예외처리
             try {
                 XmlReader reader = XmlReader.Create(uri);
+                int numb = 1;
 
                 while (reader.Read())
                 {
-                    if (reader.IsStartElement("title"))
+                    
+                    if (reader.MoveToContent() == XmlNodeType.Element && reader.Name == "item")
                     {
+                        XmlReader inner = reader.ReadSubtree();
+                        inner.ReadToDescendant("title");
+                        string _title = reader.ReadString();
+                        //MessageBox.Show(_title);
 
-                        //MessageBox.Show("Success");
-                        reader.ReadToFollowing("title");
-                        string title = reader.ReadElementContentAsString();
+                        inner.ReadToNextSibling("link");
+                        string _link = reader.ReadString();
+                        //MessageBox.Show(_link);
 
+                        inner.ReadToNextSibling("dc:date");
+                        string _date = reader.ReadString();
+                        
+                        //MessageBox.Show(_date);
 
-                        //string link = reader.GetAttribute("link");
-                        //string date = reader.GetAttribute("dc:date");
-
-                        MyData.GetInstance().Add(new MyData { DataN = "1", DataT = title, DataD = DateTime.Today });
-                        MyListView.ItemsSource = MyData.GetInstance();
+                        
+                        RSSData.GetInstance().Add(new RSSData { DataN = numb++, DataT = _title, DataL = _link, DataD = _date });
+                        DataSet.ItemsSource = RSSData.GetInstance();
+                        
                     }
+                    DataSet.Items.Refresh();
                 }
             }
 
             // URI 형식 안맞을 때
-            catch (System.IO.FileNotFoundException ex)
+            catch (System.IO.FileNotFoundException)
             {
-                MessageBox.Show("Unknown URI...");
+                MessageBox.Show("Not a Correct URI...");
             }
 
-            // 텍스트 박스 비우기
+            // 데이터 입력 후 텍스트 박스 비우기
             uri_text.Text = String.Empty;
         }
     }
 
-    public class MyData
+    public class RSSData
     {
-        // No Title Date
-        public string DataN { get; set; }
+        // Numbering Title Link Date
+        public int DataN { get; set; } 
         public string DataT { get; set; }
-        public DateTime DataD { get; set; }
+        public string DataL { get; set; }
+        public string DataD { get; set; }
 
-        private static List<MyData> instance;
-        public static List<MyData> GetInstance()
+        private static List<RSSData> instance;
+        public static List<RSSData> GetInstance()
         {
             if (instance == null)
-                instance = new List<MyData>();
+                instance = new List<RSSData>();
 
             return instance;
         }

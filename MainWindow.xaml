@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RSS_FEEDER"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1100">
     <Border Margin="10">
         <StackPanel>
             <!-- URL and Button -->
@@ -27,12 +27,13 @@
             </Grid>
 
             <!-- RSS Feed Data View-->
-            <ListView Name="MyListView">
+            <ListView Name="DataSet">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="No." Width="50" DisplayMemberBinding="{Binding DataN}"/>
-                        <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding DataD}"/>
-                        <GridViewColumn Header="Title" Width="600" DisplayMemberBinding="{Binding DataT}"/>
+                        <GridViewColumn Header="No." Width="25" DisplayMemberBinding="{Binding DataN}"/>
+                        <GridViewColumn Header="Date" Width="80" DisplayMemberBinding="{Binding DataD}"/>
+                        <GridViewColumn Header="Title" Width="470" DisplayMemberBinding="{Binding DataT}"/>
+                        <GridViewColumn Header="Link" Width="450" DisplayMemberBinding="{Binding DataL}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
