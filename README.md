@@ -4,9 +4,9 @@
 
 [UI]
 
-![image](https://user-images.githubusercontent.com/60434800/125180092-0760ee80-e231-11eb-95eb-5182a9d20b15.png)
+![image](https://user-images.githubusercontent.com/60434800/125194111-d01f2b80-e28a-11eb-99da-d129b9c279d6.png)
 
 
-[문제점]
+[다음 과제]
 
-- XMLReader의 ReadElementContentAsString 메소드에서 에러 발생(확인중)
+- ListView 스크롤바 생성
