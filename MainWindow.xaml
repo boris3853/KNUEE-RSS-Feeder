@@ -17,12 +17,12 @@
                 
                 <!-- Receving URL -->
                 <StackPanel Grid.Column="0">
-                    <TextBlock Text="URL" FontWeight="Bold"/>
-                    <TextBox x:Name="url_text" Padding="1"/>
+                    <TextBlock Text="URI" FontWeight="Bold"/>
+                    <TextBox x:Name="uri_text" Padding="1"/>
                 </StackPanel>
 
                 <!-- Button -->
-                <Button x:Name="url_btn" Grid.Column="1" Content="GET" Margin="10" Click="Button_Click"/>
+                <Button x:Name="uri_btn" Grid.Column="1" Content="GET" Margin="10" Click="Button_Click"/>
                
             </Grid>
 

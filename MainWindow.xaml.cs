@@ -32,29 +32,41 @@ namespace RSS_FEEDER
         {
             Button b = sender as Button;
 
-            // URL 받아오기
-            string url = url_text.Text;
-            XmlReader reader = XmlReader.Create(url);
-            while (reader.Read())
-            {
-                if (reader.IsStartElement("title"))
+            // URI 받아오기
+            string uri = uri_text.Text;
+            
+
+            // 예외처리
+            try {
+                XmlReader reader = XmlReader.Create(uri);
+
+                while (reader.Read())
                 {
+                    if (reader.IsStartElement("title"))
+                    {
 
-                    //MessageBox.Show("Success");
-                    reader.ReadToFollowing("title");
-                    string title = reader.ReadElementContentAsString();
-                   
-                    
-                    //string link = reader.GetAttribute("link");
-                    //string date = reader.GetAttribute("dc:date");
+                        //MessageBox.Show("Success");
+                        reader.ReadToFollowing("title");
+                        string title = reader.ReadElementContentAsString();
 
-                   MyData.GetInstance().Add(new MyData { DataN = "1", DataT = title, DataD = DateTime.Today });
-                   MyListView.ItemsSource = MyData.GetInstance();
+
+                        //string link = reader.GetAttribute("link");
+                        //string date = reader.GetAttribute("dc:date");
+
+                        MyData.GetInstance().Add(new MyData { DataN = "1", DataT = title, DataD = DateTime.Today });
+                        MyListView.ItemsSource = MyData.GetInstance();
+                    }
                 }
             }
 
-//            MyData.GetInstance().Add(new MyData { number = "1", title = "test", date = DateTime.Today });
-  //          MyListView.ItemsSource = MyData.GetInstance();
+            // URI 형식 안맞을 때
+            catch (System.IO.FileNotFoundException ex)
+            {
+                MessageBox.Show("Unknown URI...");
+            }
+
+            // 텍스트 박스 비우기
+            uri_text.Text = String.Empty;
         }
     }
 
